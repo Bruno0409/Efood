@@ -15,7 +15,7 @@ export const HeroImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1; /* imagem de fundo */
+  z-index: 1;
 `
 
 export const Logo = styled.img`
@@ -24,7 +24,7 @@ export const Logo = styled.img`
   width: 125px;
   height: 58px;
   position: relative;
-  z-index: 2; /* acima da imagem */
+  z-index: 2;
 `
 
 export const HeroText = styled.h1`
@@ -35,15 +35,26 @@ export const HeroText = styled.h1`
   font-weight: 900;
   color: ${cores.corDoTexto};
   position: relative;
-  z-index: 2; /* acima da imagem */
-`
-export const SecaoCards = styled.section`
-  background-color: #fff8f2;
-  padding: 64px 170px;
+  z-index: 2;
 `
 
-export const Lista = styled.div`
+export const SecaoCards = styled.section`
+  background-color: #fff8f2;
+  padding: 0;
+`
+
+export const Container = styled.div`
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 80px; // espaçamento lateral
+`
+
+export const Lista = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 48px 80px;
+  gap: 40px 80px;
+  list-style: none;
+  margin: 0;
+  padding: 40px 0;
 `

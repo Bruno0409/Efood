@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   CardContainer,
   Imagem,
@@ -11,9 +12,6 @@ import {
   Botao
 } from './styles'
 
-// Remova esta linha:
-// import estrela from '../../assets/imagens/estrela.png'
-
 type Props = {
   imagem: string
   tags: string[]
@@ -23,6 +21,12 @@ type Props = {
 }
 
 const Card: React.FC<Props> = ({ imagem, tags, titulo, nota, descricao }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/perfil') // substitua '/perfil' pela rota da página de perfil
+  }
+
   return (
     <CardContainer>
       <Imagem src={imagem} alt={titulo} />
@@ -36,7 +40,7 @@ const Card: React.FC<Props> = ({ imagem, tags, titulo, nota, descricao }) => {
         <Nota>{nota} ⭐️</Nota>
       </InfoContainer>
       <Descricao>{descricao}</Descricao>
-      <Botao>Saiba mais</Botao>
+      <Botao onClick={handleClick}>Saiba mais</Botao>
     </CardContainer>
   )
 }

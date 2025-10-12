@@ -7,22 +7,16 @@ export const HeroContainer = styled.div`
   height: auto;
 `
 
-export const HeroImage = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-`
-
 export const HeaderRow = styled.div`
   position: absolute;
-  top: 20px; // ajuste conforme necessário para o seu layout
+  top: 50px; // ajuste conforme necessário para o seu layout
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 1040px; // ou a largura do seu container
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 20px;
   padding: 0 100px;
 `
@@ -34,11 +28,16 @@ export const LeftText = styled.span`
   flex: 1;
   text-align: left;
   padding-left: 20px;
+  margin-top: 16px;
 `
 
 export const Logo = styled.img`
-  height: 50px; // ajuste a altura do logo como quiser
+  height: 50px;
   object-fit: contain;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 16px;
 `
 
 export const RightText = styled.span`
@@ -48,4 +47,110 @@ export const RightText = styled.span`
   flex: 1;
   text-align: right;
   padding-right: 20px;
+`
+
+export const HeroApresentacao = styled.section`
+  background-color: ${cores.corDoFundoClaro}; // ou branco, ou uma imagem de fundo
+  text-align: center;
+`
+
+export const HeroText = styled.h2`
+  font-size: 24px;
+  font-weight: bold;
+  color: ${cores.corDoTexto};
+`
+export const HeroApresentacaoContainer = styled.section`
+  position: relative;
+  height: 280px; // ajuste conforme a altura da imagem
+  width: 100%;
+`
+
+export const HeroImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; // <- isso centraliza o conteúdo da imagem
+  display: block;
+`
+
+export const HeroTitle = styled.h1`
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: #fff;
+  font-weight: bold;
+`
+
+export const HeroSubtitle = styled.h2`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #fff;
+  font-weight: normal;
+`
+export const HeroImageSecundario = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+`
+// dentro do seu arquivo styles.ts
+
+export const CardsSection = styled.section`
+  max-width: 1040px;
+  margin: 40px auto;
+  padding: 0 85.5px; // total 171px (85.5px em cada lado)
+  margin-bottom: 100px;
+`
+
+export const CardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+`
+
+export const Card = styled.div`
+  width: 268px; // limita a largura do card (ajuste conforme quiser)
+  background: ${cores.corDoTexto};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const CardImage = styled.img`
+  width: 260px; // mesma largura do card
+  height: 147px; // proporcional à imagem original (304x167)
+  object-fit: cover;
+`
+
+export const CardTitle = styled.h3`
+  font-weight: bold;
+  margin-top: 12px;
+  font-size: 16px;
+  color: ${cores.corDoFundoClaro};
+`
+
+export const CardDescription = styled.p`
+  font-weight: normal;
+  font-size: 14px;
+  color: ${cores.corDoFundoClaro};
+  margin: 8px 0 16px 0;
+  text-align: center;
+`
+
+export const AddButton = styled.button`
+  background-color: ${cores.corDoFundoClaro};
+  color: ${cores.corDoTexto};
+  border: none;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 260px;
 `
