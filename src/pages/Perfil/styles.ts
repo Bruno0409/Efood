@@ -47,6 +47,7 @@ export const RightText = styled.span`
   flex: 1;
   text-align: right;
   padding-right: 20px;
+  cursor: pointer;
 `
 
 export const HeroApresentacao = styled.section`
