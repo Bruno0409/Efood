@@ -7,7 +7,7 @@ export const DrawerOverlay = styled.div`
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: flex-end;
   z-index: 999;
@@ -29,7 +29,7 @@ export const DrawerContainer = styled.div`
 export const ItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   overflow-y: auto;
   flex-grow: 1;
 `
@@ -40,14 +40,14 @@ export const CartItem = styled.div`
   background-color: ${cores.corDoFundoBege};
   color: ${cores.corDoTexto};
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px;
   gap: 12px;
   position: relative;
 `
 
 export const CartImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 6px;
   object-fit: cover;
 `

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '../../components/Modal/modal'
-import CartDrawer from '../../components/Carrinho/carrinho'
+import CartDrawer from '../../components/Carrinho'
 import EnderecoDrawer from '../../components/Endereco'
+import PagamentoDrawer from '../../components/Pagamento'
+import ConfirmacaoPedidoDrawer from '../../components/Confirmacao'
 
 import {
   ModalBody,
@@ -57,42 +59,48 @@ const cardsData: Product[] = [
     id: 1,
     img: cardImg1,
     title: 'Pizza Marguerita',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   },
   {
     id: 2,
     img: cardImg2,
     title: 'Pizza Marguerita',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   },
   {
     id: 3,
     img: cardImg3,
     title: 'Pizza Marguerita',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   },
   {
     id: 4,
     img: cardImg4,
     title: 'Produto 4',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   },
   {
     id: 5,
     img: cardImg5,
     title: 'Pizza Marguerita',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   },
   {
     id: 6,
     img: cardImg6,
     title: 'Pizza Marguerita',
-    description: 'A clássica Marguerita...',
+    description:
+      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
     price: 60.9
   }
 ]
@@ -101,13 +109,27 @@ const Perfil = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [cartOpen, setCartOpen] = useState(false)
+  const [enderecoOpen, setEnderecoOpen] = useState(false)
+  const [pagamentoOpen, setPagamentoOpen] = useState(false)
   const [cartItems, setCartItems] = useState<Product[]>([])
 
   const handleAddClick = (product: Product) => {
     setSelectedProduct(product)
     setModalOpen(true)
   }
-  const [enderecoOpen, setEnderecoOpen] = useState(false)
+
+  const handleVoltarParaEndereco = () => {
+    setPagamentoOpen(false)
+    setEnderecoOpen(true)
+  }
+
+  const handleVoltarAoCarrinho = () => {
+    setEnderecoOpen(false)
+    setCartOpen(true)
+  }
+
+  const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
+  const [orderId] = useState('12345ABC') // Pode vir do backend ou ser gerado dinamicamente
 
   return (
     <>
@@ -207,7 +229,32 @@ const Perfil = () => {
         onClose={() => setEnderecoOpen(false)}
         onContinue={() => {
           setEnderecoOpen(false)
-          // Redirecionar para pagamento ou próxima etapa
+          setPagamentoOpen(true)
+        }}
+        onVoltarAoCarrinho={handleVoltarAoCarrinho} // adiciona aqui
+      />
+
+      {/* Drawer de Pagamento */}
+      <PagamentoDrawer
+        isOpen={pagamentoOpen}
+        onClose={() => setPagamentoOpen(false)}
+        onVoltarParaEndereco={handleVoltarParaEndereco}
+        onFinish={() => {
+          setPagamentoOpen(false)
+          setConfirmacaoOpen(true) // abrir confirmação
+          // você pode setar o orderId aqui, se vier do backend
+        }}
+        total={cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
+      />
+
+      <ConfirmacaoPedidoDrawer
+        isOpen={confirmacaoOpen}
+        onClose={() => setConfirmacaoOpen(false)}
+        orderId={orderId}
+        onConcluir={() => {
+          setConfirmacaoOpen(false)
+          // Se quiser, pode resetar carrinho, redirecionar, etc aqui
+          setCartItems([])
         }}
       />
     </>

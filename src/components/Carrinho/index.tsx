@@ -1,5 +1,7 @@
+// src/components/Carrinho/index.tsx
+
 import React from 'react'
-import trashIcon from '../../assets/imagens/Lixeira.png' // ajuste o caminho conforme sua pasta
+import trashIcon from '../../assets/imagens/Lixeira.png'
 
 import {
   DrawerOverlay,
@@ -16,9 +18,9 @@ import {
   TotalLabel,
   TotalValue,
   TotalRow
-} from '../Carrinho/styles'
+} from './styles'
 
-interface Product {
+export interface Product {
   id: number
   img: string
   title: string
@@ -66,7 +68,6 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
           ))}
         </ItemsContainer>
 
-        {/* Rodapé do carrinho */}
         <CartFooter>
           <TotalRow>
             <TotalLabel>Valor total:</TotalLabel>

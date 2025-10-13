@@ -92,7 +92,8 @@ export const CustomText = styled.p`
 export const Button = styled.button`
   margin-top: 16px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
   background-color: ${cores.corDoFundoBege};
   color: ${cores.corDoTexto};
   border: none;

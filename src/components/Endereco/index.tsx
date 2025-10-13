@@ -1,3 +1,5 @@
+// src/components/Endereco/index.tsx
+
 import React from 'react'
 import {
   DrawerOverlay,
@@ -9,18 +11,20 @@ import {
   Row,
   CheckoutButton,
   SecondaryButton
-} from '../Endereco/styles'
+} from './styles' // já está no caminho correto
 
 interface EnderecoDrawerProps {
   isOpen: boolean
   onClose: () => void
   onContinue: () => void
+  onVoltarAoCarrinho: () => void
 }
 
 const EnderecoDrawer: React.FC<EnderecoDrawerProps> = ({
   isOpen,
   onClose,
-  onContinue
+  onContinue,
+  onVoltarAoCarrinho
 }) => {
   if (!isOpen) return null
 
@@ -63,10 +67,18 @@ const EnderecoDrawer: React.FC<EnderecoDrawerProps> = ({
           </InputGroup>
         </ItemsContainer>
 
-        <CheckoutButton onClick={onContinue}>
+        <CheckoutButton
+          onClick={(e) => {
+            e.stopPropagation()
+            onContinue()
+          }}
+        >
           Continuar com o pagamento
         </CheckoutButton>
-        <SecondaryButton onClick={onClose}>Voltar ao carrinho</SecondaryButton>
+
+        <SecondaryButton onClick={onVoltarAoCarrinho}>
+          Voltar ao carrinho
+        </SecondaryButton>
       </DrawerContainer>
     </DrawerOverlay>
   )

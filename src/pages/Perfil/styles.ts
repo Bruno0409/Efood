@@ -115,19 +115,24 @@ export const CardsGrid = styled.div`
 `
 
 export const Card = styled.div`
-  width: 268px; // limita a largura do card (ajuste conforme quiser)
+  width: 268px;
   background: ${cores.corDoTexto};
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* borda arredondada */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* sombra suave */
   padding: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden; /* para que imagem arredondada não "vaze" */
+  transition: transform 0.2s ease;
 `
 
 export const CardImage = styled.img`
-  width: 260px; // mesma largura do card
-  height: 147px; // proporcional à imagem original (304x167)
+  width: 100%;
+  height: 147px;
   object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `
 
 export const CardTitle = styled.h3`
@@ -152,6 +157,7 @@ export const AddButton = styled.button`
   padding: 10px 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   width: 260px;
+  border-radius: 8px;
 `

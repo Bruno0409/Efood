@@ -1,4 +1,5 @@
 // src/components/Footer/index.tsx
+import { Link } from 'react-router-dom'
 import React from 'react'
 import { Container, Logo, Icones, Icone, Texto } from '../Footer/styles'
 import logo from '../../assets/imagens/logo.png'
@@ -11,9 +12,27 @@ const Footer = () => {
     <Container>
       <Logo src={logo} alt="Efood logo" />
       <Icones>
-        <Icone src={facebook} alt="Facebook" />
-        <Icone src={instagram} alt="Instagram" />
-        <Icone src={twitter} alt="Twitter" />
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icone src={facebook} alt="Facebook" />
+        </a>
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icone src={instagram} alt="Instagram" />
+        </a>
+        <a
+          href="https://www.twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icone src={twitter} alt="Twitter" />
+        </a>
       </Icones>
       <Texto>
         A efood é uma plataforma para divulgação de estabelecimentos, a

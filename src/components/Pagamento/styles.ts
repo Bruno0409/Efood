@@ -56,10 +56,7 @@ export const Input = styled.input`
 
 export const Row = styled.div`
   display: flex;
-  gap: 10px;
-`
-export const InputNumber = styled(Input)`
-  width: 80px;
+  gap: 12px;
 `
 
 export const CheckoutButton = styled.button`
@@ -90,4 +87,23 @@ export const SecondaryButton = styled(CheckoutButton)`
   background-color: transparent;
   color: ${cores.corDoFundoBege};
   border: 1px solid ${cores.corDoFundoBege};
+`
+
+export const TitleRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+`
+
+export const Title = styled.h2`
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+`
+
+export const TotalText = styled.span`
+  font-size: 14px;
+  font-weight: bold;
+  color: ${cores.corDoFundoBege};
 `

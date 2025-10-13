@@ -2,16 +2,18 @@ import styled from 'styled-components'
 import { cores } from '../../styles/globalStyles'
 
 export const CardContainer = styled.div`
-  width: 384px; /* novo tamanho */
-  border: 2px solid ${cores.corDoTexto};
+  width: 384px;
+  border: 3px solid ${cores.corDoTexto};
+  border-radius: 8px;
   padding: 8px;
   background-color: #fff;
   margin-top: 20px;
+  overflow: hidden; /* Esconde o excesso da imagem */
 `
 
 export const Imagem = styled.img`
-  width: calc(100% + 16px); // 100% + padding horizontal (8px de cada lado)
-  margin: -8px -8px 0 -8px; // remove o padding das laterais e topo
+  width: calc(100% + 16px);
+  margin: -8px -8px 0 -8px;
   height: 217px;
   object-fit: cover;
   display: block;

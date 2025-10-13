@@ -1,3 +1,4 @@
+// src/components/Confirmacao/styles.ts
 import styled from 'styled-components'
 import { cores } from '../../styles/globalStyles'
 
@@ -26,48 +27,31 @@ export const DrawerContainer = styled.div`
 `
 
 export const ItemsContainer = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-  flex-grow: 1;
 `
 
-export const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`
-
-export const Label = styled.label`
-  font-size: 13px;
-  font-weight: bold;
+export const Title = styled.h2`
+  font-size: 20px;
+  margin-bottom: 16px;
   color: ${cores.corDoFundoBege};
 `
 
-export const Input = styled.input`
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
+export const Paragraph = styled.p`
   font-size: 14px;
-  outline: none;
-  background-color: ${cores.corDoFundoBege};
+  line-height: 1.4;
+  color: ${cores.corDoFundoBege};
 `
 
-export const Row = styled.div`
-  display: flex;
-  gap: 10px;
-`
-export const InputNumber = styled(Input)`
-  width: 80px;
-`
-
-export const CheckoutButton = styled.button`
+export const ConcluirButton = styled.button`
   width: 100%;
   max-width: 340px;
   background-color: ${cores.corDoFundoBege};
   color: ${cores.corDoTexto};
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 14px;
   padding: 12px;
@@ -75,7 +59,7 @@ export const CheckoutButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
   align-self: center;
-  margin-top: 12px;
+  margin-top: auto;
 
   &:hover {
     opacity: 0.9;
@@ -84,10 +68,4 @@ export const CheckoutButton = styled.button`
   &:focus {
     outline: none;
   }
-`
-
-export const SecondaryButton = styled(CheckoutButton)`
-  background-color: transparent;
-  color: ${cores.corDoFundoBege};
-  border: 1px solid ${cores.corDoFundoBege};
 `

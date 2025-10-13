@@ -19,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   /* Fonte global */
   body {
     font-family: 'Roboto', sans-serif;
-    background-color: #fff; /* Ajuste se quiser */
-    color: #000; /* Ajuste a cor do texto padrão */
+    background-color: ${cores.corDoFundoClaro};
   }
 `
