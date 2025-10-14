@@ -1,6 +1,3 @@
-// src/pages/Pagamento/index.tsx
-
-import React from 'react'
 import {
   DrawerContainer,
   ItemsContainer,
@@ -18,10 +15,10 @@ import { useNavigate } from 'react-router-dom'
 
 const PagamentoPage = () => {
   const navigate = useNavigate()
-  const total = '120.00' // <- pode vir via props/contexto/global state futuramente
+  const total = '120.00'
 
   const handleFinish = () => {
-    navigate('/confirmacao') // ou a página que quiser
+    navigate('/confirmacao')
   }
 
   const handleBack = () => {

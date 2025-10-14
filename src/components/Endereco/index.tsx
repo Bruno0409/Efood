@@ -1,5 +1,3 @@
-// src/components/Endereco/index.tsx
-
 import React from 'react'
 import {
   DrawerOverlay,
@@ -11,7 +9,7 @@ import {
   Row,
   CheckoutButton,
   SecondaryButton
-} from './styles' // já está no caminho correto
+} from './styles'
 
 interface EnderecoDrawerProps {
   isOpen: boolean

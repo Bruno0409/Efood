@@ -1,5 +1,3 @@
-// src/pages/Carrinho/index.tsx
-
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CartDrawer, { Product } from '../../components/Carrinho'
@@ -7,7 +5,6 @@ import CartDrawer, { Product } from '../../components/Carrinho'
 const CarrinhoPage = () => {
   const navigate = useNavigate()
 
-  // Simulação inicial do carrinho
   const [cartItems, setCartItems] = useState<Product[]>([
     {
       id: 1,
@@ -28,7 +25,6 @@ const CarrinhoPage = () => {
   }
 
   const handleContinue = () => {
-    // Futuramente: salvar no contexto, localStorage ou API
     navigate('/entrega')
   }
 

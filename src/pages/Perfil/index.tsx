@@ -129,7 +129,7 @@ const Perfil = () => {
   }
 
   const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
-  const [orderId] = useState('12345ABC') // Pode vir do backend ou ser gerado dinamicamente
+  const [orderId] = useState('12345ABC')
 
   return (
     <>
@@ -181,7 +181,6 @@ const Perfil = () => {
         </CardsGrid>
       </CardsSection>
 
-      {/* Modal de produto */}
       {modalOpen && selectedProduct && (
         <Modal onClose={() => setModalOpen(false)}>
           <ModalBody>
@@ -209,7 +208,6 @@ const Perfil = () => {
         </Modal>
       )}
 
-      {/* Carrinho Lateral */}
       <CartDrawer
         isOpen={cartOpen}
         onClose={() => setCartOpen(false)}
@@ -223,7 +221,6 @@ const Perfil = () => {
         }}
       />
 
-      {/* Drawer de Endereço */}
       <EnderecoDrawer
         isOpen={enderecoOpen}
         onClose={() => setEnderecoOpen(false)}
@@ -231,18 +228,16 @@ const Perfil = () => {
           setEnderecoOpen(false)
           setPagamentoOpen(true)
         }}
-        onVoltarAoCarrinho={handleVoltarAoCarrinho} // adiciona aqui
+        onVoltarAoCarrinho={handleVoltarAoCarrinho}
       />
 
-      {/* Drawer de Pagamento */}
       <PagamentoDrawer
         isOpen={pagamentoOpen}
         onClose={() => setPagamentoOpen(false)}
         onVoltarParaEndereco={handleVoltarParaEndereco}
         onFinish={() => {
           setPagamentoOpen(false)
-          setConfirmacaoOpen(true) // abrir confirmação
-          // você pode setar o orderId aqui, se vier do backend
+          setConfirmacaoOpen(true)
         }}
         total={cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
       />
@@ -253,7 +248,7 @@ const Perfil = () => {
         orderId={orderId}
         onConcluir={() => {
           setConfirmacaoOpen(false)
-          // Se quiser, pode resetar carrinho, redirecionar, etc aqui
+
           setCartItems([])
         }}
       />

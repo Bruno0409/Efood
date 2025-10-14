@@ -1,4 +1,3 @@
-// src/components/Confirmacao/styles.ts
 import styled from 'styled-components'
 import { cores } from '../../styles/globalStyles'
 
@@ -8,7 +7,7 @@ export const DrawerOverlay = styled.div`
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${cores.overlayColor};
   display: flex;
   justify-content: flex-end;
   z-index: 999;
@@ -22,7 +21,6 @@ export const DrawerContainer = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
-  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
   font-family: 'Roboto', sans-serif;
 `
 

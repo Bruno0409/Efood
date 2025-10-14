@@ -9,11 +9,11 @@ export const HeroContainer = styled.div`
 
 export const HeaderRow = styled.div`
   position: absolute;
-  top: 50px; // ajuste conforme necessário para o seu layout
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 1040px; // ou a largura do seu container
+  max-width: 1040px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +51,7 @@ export const RightText = styled.span`
 `
 
 export const HeroApresentacao = styled.section`
-  background-color: ${cores.corDoFundoClaro}; // ou branco, ou uma imagem de fundo
+  background-color: ${cores.corDoFundoClaro};
   text-align: center;
 `
 
@@ -62,7 +62,7 @@ export const HeroText = styled.h2`
 `
 export const HeroApresentacaoContainer = styled.section`
   position: relative;
-  height: 280px; // ajuste conforme a altura da imagem
+  height: 280px;
   width: 100%;
 `
 
@@ -70,7 +70,7 @@ export const HeroImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center; // <- isso centraliza o conteúdo da imagem
+  object-position: center;
   display: block;
 `
 
@@ -99,12 +99,11 @@ export const HeroImageSecundario = styled.img`
   object-fit: cover;
   display: block;
 `
-// dentro do seu arquivo styles.ts
 
 export const CardsSection = styled.section`
   max-width: 1040px;
   margin: 40px auto;
-  padding: 0 85.5px; // total 171px (85.5px em cada lado)
+  padding: 0 85.5px;
   margin-bottom: 100px;
 `
 
@@ -117,13 +116,12 @@ export const CardsGrid = styled.div`
 export const Card = styled.div`
   width: 268px;
   background: ${cores.corDoTexto};
-  border-radius: 12px; /* borda arredondada */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* sombra suave */
+  border-radius: 12px;
   padding: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden; /* para que imagem arredondada não "vaze" */
+  overflow: hidden;
   transition: transform 0.2s ease;
 `
 

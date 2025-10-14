@@ -1,5 +1,3 @@
-// src/components/Carrinho/index.tsx
-
 import React from 'react'
 import trashIcon from '../../assets/imagens/Lixeira.png'
 

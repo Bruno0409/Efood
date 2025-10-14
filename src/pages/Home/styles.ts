@@ -39,7 +39,7 @@ export const HeroText = styled.h1`
 `
 
 export const SecaoCards = styled.section`
-  background-color: #fff8f2;
+  background-color: ${cores.corDoFundoClaro};
   padding: 0;
 `
 
@@ -47,7 +47,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1040px;
   margin: 0 auto;
-  padding: 0 80px; // espaçamento lateral
+  padding: 0 80px;
 `
 
 export const Lista = styled.ul`

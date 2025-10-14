@@ -1,5 +1,3 @@
-// src/pages/Endereco/index.tsx
-
 import React from 'react'
 import {
   DrawerContainer,
@@ -17,11 +15,11 @@ const EnderecoPage = () => {
   const navigate = useNavigate()
 
   const handleContinue = () => {
-    navigate('/pagamento') // ajuste conforme sua rota
+    navigate('/pagamento')
   }
 
   const handleBack = () => {
-    navigate('/carrinho') // ajuste conforme sua rota
+    navigate('/carrinho')
   }
 
   return (

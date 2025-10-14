@@ -1,5 +1,3 @@
-// src/components/Pagamento/index.tsx
-
 import React from 'react'
 import {
   DrawerOverlay,

@@ -24,7 +24,7 @@ const Card: React.FC<Props> = ({ imagem, tags, titulo, nota, descricao }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate('/perfil') // substitua '/perfil' pela rota da página de perfil
+    navigate('/perfil')
   }
 
   return (

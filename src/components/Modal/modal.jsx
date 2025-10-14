@@ -1,5 +1,5 @@
 import React from 'react'
-import { ModalOverlay, ModalContent, CloseButton } from './styles' // Aqui você importa os componentes de estilo
+import { ModalOverlay, ModalContent, CloseButton } from './styles'
 
 export default function Modal({ onClose, children }) {
   return (

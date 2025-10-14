@@ -1,5 +1,3 @@
-// src/components/Confirmacao/index.tsx
-
 import React from 'react'
 import {
   DrawerOverlay,

@@ -7,14 +7,14 @@ export const DrawerOverlay = styled.div`
   right: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${cores.overlayColor};
   display: flex;
   justify-content: flex-end;
   z-index: 999;
 `
 
 export const DrawerContainer = styled.div`
-  width: 360px; /* largura fixa conforme o Figma */
+  width: 360px;
   height: 100%;
   background-color: ${cores.corDoTexto};
   color: ${cores.corDoFundoBege};
@@ -22,8 +22,7 @@ export const DrawerContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Roboto', sans-serif; /* fonte Roboto */
+  font-family: 'Roboto', sans-serif;
 `
 
 export const ItemsContainer = styled.div`

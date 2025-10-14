@@ -6,9 +6,8 @@ export const CardContainer = styled.div`
   border: 3px solid ${cores.corDoTexto};
   border-radius: 8px;
   padding: 8px;
-  background-color: #fff;
   margin-top: 20px;
-  overflow: hidden; /* Esconde o excesso da imagem */
+  overflow: hidden;
 `
 
 export const Imagem = styled.img`

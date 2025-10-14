@@ -7,7 +7,7 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${cores.overlayColor};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,6 @@ export const ModalContent = styled.div`
   border-radius: 8px;
   max-width: 1024px;
   width: 80%;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -36,7 +35,7 @@ export const CloseButton = styled.button`
   background: none;
   border: none;
   font-size: 20px;
-  color: #333;
+  color: ${cores.corDoFundoBege};
   cursor: pointer;
   padding: 0;
   width: 30px;
@@ -62,7 +61,7 @@ export const ModalBody = styled.div`
 `
 
 export const ProductImage = styled.img`
-  width: 250px; // Tamanho ajustado da imagem
+  width: 250px;
   height: 250px;
   object-fit: cover;
   border-radius: 8px;

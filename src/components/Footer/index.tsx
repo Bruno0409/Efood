@@ -1,6 +1,3 @@
-// src/components/Footer/index.tsx
-import { Link } from 'react-router-dom'
-import React from 'react'
 import { Container, Logo, Icones, Icone, Texto } from '../Footer/styles'
 import logo from '../../assets/imagens/logo.png'
 import facebook from '../../assets/imagens/Facebook.png'

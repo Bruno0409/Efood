@@ -12,10 +12,9 @@ import { useNavigate } from 'react-router-dom'
 
 const ConfirmacaoPage = () => {
   const navigate = useNavigate()
-  const orderId = '12345ABC' // Pode vir de um contexto ou localStorage depois
+  const orderId = '12345ABC'
 
   const handleConcluir = () => {
-    // Redirecionar para o início, limpar estado global etc.
     navigate('/')
   }
 
