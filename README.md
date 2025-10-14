@@ -4,10 +4,10 @@ Uma aplicação completa de delivery, inspirada no iFood, desenvolvida com foco 
 
 ## 📸 Preview
 
-￼
-￼
-￼
-￼
+![Tela Home](src/assets/imagens/fotosProjeto/1.png)
+![Tela Perfil](src/assets/imagens/fotosProjeto/2.png)
+![Tela Descrição](src/assets/imagens/fotosProjeto/3.png)
+![Tela Carrinho](src/assets/imagens/fotosProjeto/1.png)
 
 ## 🎯 Descrição do Projeto
 
