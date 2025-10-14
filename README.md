@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# 📦 eFood — Clone do iFood com React + Styled Components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Uma aplicação completa de delivery, inspirada no iFood, desenvolvida com foco em componentização, boas práticas de React e estilização moderna usando Styled Components.
 
-## Available Scripts
+## 📸 Preview
 
-In the project directory, you can run:
+￼
+￼
+￼
+￼
 
-### `npm start`
+## 🎯 Descrição do Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Este projeto é uma réplica simplificada do iFood, desenvolvida a partir de um layout disponível no Figma, com o objetivo de simular a experiência completa de um aplicativo de delivery. A aplicação permite ao usuário:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Navegar por diferentes restaurantes
+- Visualizar e adicionar pratos ao carrinho
+- Inserir informações de entrega
+- Realizar o pagamento
+- Visualizar uma tela de confirmação do pedido
 
-### `npm test`
+Tudo isso com uma navegação fluida e uma interface moderna construída com React e Styled Components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚀 Tecnologias Utilizadas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React** (Vite) — Biblioteca principal da aplicação
+- **TypeScript** — Tipagem estática e segurança de código
+- **Styled Components** — Estilização com CSS-in-JS
+- **React Router** — Navegação entre páginas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📁 Funcionalidades
 
-### `npm run eject`
+- ✅ Listagem de restaurantes com estilos individuais
+- ✅ Modal com detalhes dos pratos
+- ✅ Carrinho lateral com sistema de remoção e totalização
+- ✅ Formulário de endereço com validação básica
+- ✅ Tela de pagamento com simulação de finalização
+- ✅ Tela de confirmação do pedido com número gerado
+- ✅ Componentes reutilizáveis e organizados por responsabilidades
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 💡 Aprendizados e Destaques Técnicos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Durante o desenvolvimento, os principais pontos de aprendizado foram:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Criação de componentes modulares e reutilizáveis
+- Uso eficiente de `useState` e `useEffect` para controle de estado
+- Gerenciamento de múltiplos drawers sobrepostos (carrinho, endereço, pagamento, confirmação)
+- Boas práticas de organização de pastas e arquivos
+- Navegação com React Router com controle de múltiplas telas no mesmo componente
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📌 Desafios Técnicos Enfrentados
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Implementação da navegação condicional entre etapas do pedido
+- Manipulação de múltiplos drawers sobrepostos de forma organizada
+- Gerenciamento do carrinho e etapas do pedido
