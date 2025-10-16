@@ -53,17 +53,10 @@ export const RightText = styled.span`
 export const HeroApresentacao = styled.section`
   background-color: ${cores.corDoFundoClaro};
   text-align: center;
-`
-
-export const HeroText = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  color: ${cores.corDoTexto};
-`
-export const HeroApresentacaoContainer = styled.section`
   position: relative;
-  height: 280px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const HeroImage = styled.img`
@@ -76,22 +69,20 @@ export const HeroImage = styled.img`
 
 export const HeroTitle = styled.h1`
   position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 32px;
+  top: 15%;
+  left: 20%;
+  font-size: 24px;
   color: #fff;
-  font-weight: bold;
+  font-weight: lighter;
 `
 
 export const HeroSubtitle = styled.h2`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
+  top: 75%;
+  left: 20%;
+  font-size: 32px;
   color: #fff;
-  font-weight: normal;
+  font-weight: bold;
 `
 export const HeroImageSecundario = styled.img`
   width: 100%;
@@ -138,6 +129,8 @@ export const CardTitle = styled.h3`
   margin-top: 12px;
   font-size: 16px;
   color: ${cores.corDoFundoClaro};
+  text-align: left;
+  align-self: flex-start; /* Alinha o título à esquerda */
 `
 
 export const CardDescription = styled.p`
@@ -145,7 +138,7 @@ export const CardDescription = styled.p`
   font-size: 14px;
   color: ${cores.corDoFundoClaro};
   margin: 8px 0 16px 0;
-  text-align: center;
+  text-align: left;
 `
 
 export const AddButton = styled.button`

@@ -144,16 +144,15 @@ const Perfil = () => {
             {cartItems.length} produto(s) no carrinho
           </RightText>
         </HeaderRow>
+        <HeroApresentacao>
+          <HeroImageSecundario
+            src={heroImagemMassa}
+            alt="Imagem do fundo perfil"
+          />
+          <HeroTitle>Italiana</HeroTitle>
+          <HeroSubtitle>La Dolce Vita Trattoria</HeroSubtitle>
+        </HeroApresentacao>
       </HeroContainer>
-
-      <HeroApresentacao>
-        <HeroImageSecundario
-          src={heroImagemMassa}
-          alt="Imagem do fundo perfil"
-        />
-        <HeroTitle>Italiana</HeroTitle>
-        <HeroSubtitle>La Dolce Vita Trattoria</HeroSubtitle>
-      </HeroApresentacao>
 
       <CardsSection>
         <CardsGrid>

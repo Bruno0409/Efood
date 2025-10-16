@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { cores } from '../../styles/globalStyles'
 
 export const CardContainer = styled.div`
-  width: 384px;
+  width: 472px;
   border: 3px solid ${cores.corDoTexto};
   border-radius: 8px;
   padding: 8px;
