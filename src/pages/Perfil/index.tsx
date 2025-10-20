@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '../../components/Modal/modal'
 import CartDrawer from '../../components/Carrinho'
@@ -38,12 +38,6 @@ import {
 import heroImagePerfil from '../../assets/imagens/fundo_menor.png'
 import logoImage from '../../assets/imagens/logo.png'
 import heroImagemMassa from '../../assets/imagens/fundoMassa.png'
-import cardImg1 from '../../assets/imagens/image 3.png'
-import cardImg2 from '../../assets/imagens/image 3.png'
-import cardImg3 from '../../assets/imagens/image 3.png'
-import cardImg4 from '../../assets/imagens/image 3.png'
-import cardImg5 from '../../assets/imagens/image 3.png'
-import cardImg6 from '../../assets/imagens/image 3.png'
 
 interface Product {
   id: number
@@ -54,64 +48,36 @@ interface Product {
   customText?: string
 }
 
-const cardsData: Product[] = [
-  {
-    id: 1,
-    img: cardImg1,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  },
-  {
-    id: 2,
-    img: cardImg2,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  },
-  {
-    id: 3,
-    img: cardImg3,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  },
-  {
-    id: 4,
-    img: cardImg4,
-    title: 'Produto 4',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  },
-  {
-    id: 5,
-    img: cardImg5,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  },
-  {
-    id: 6,
-    img: cardImg6,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    price: 60.9
-  }
-]
-
 const Perfil = () => {
+  const [products, setProducts] = useState<Product[]>([])
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [cartOpen, setCartOpen] = useState(false)
   const [enderecoOpen, setEnderecoOpen] = useState(false)
   const [pagamentoOpen, setPagamentoOpen] = useState(false)
+  const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
   const [cartItems, setCartItems] = useState<Product[]>([])
+  const [orderId] = useState('12345ABC')
+
+  useEffect(() => {
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((data) => {
+        const restaurante = data[0]
+        const pratos = restaurante.cardapio.map((item: any) => ({
+          id: item.id,
+          img: item.foto,
+          title: item.nome,
+          description: item.descricao,
+          price: item.preco,
+          customText: 'Serve de 2 a 3 pessoas'
+        }))
+        setProducts(pratos)
+      })
+      .catch((err) => {
+        console.error('Erro ao carregar produtos:', err)
+      })
+  }, [])
 
   const handleAddClick = (product: Product) => {
     setSelectedProduct(product)
@@ -128,9 +94,6 @@ const Perfil = () => {
     setCartOpen(true)
   }
 
-  const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
-  const [orderId] = useState('12345ABC')
-
   return (
     <>
       <HeroContainer>
@@ -145,10 +108,7 @@ const Perfil = () => {
           </RightText>
         </HeaderRow>
         <HeroApresentacao>
-          <HeroImageSecundario
-            src={heroImagemMassa}
-            alt="Imagem do fundo perfil"
-          />
+          <HeroImageSecundario src={heroImagemMassa} alt="Imagem secundária" />
           <HeroTitle>Italiana</HeroTitle>
           <HeroSubtitle>La Dolce Vita Trattoria</HeroSubtitle>
         </HeroApresentacao>
@@ -156,7 +116,7 @@ const Perfil = () => {
 
       <CardsSection>
         <CardsGrid>
-          {cardsData.map(({ id, img, title, description, price }) => (
+          {products.map(({ id, img, title, description, price }) => (
             <Card key={id}>
               <CardImage src={img} alt={title} />
               <CardTitle>{title}</CardTitle>
@@ -169,7 +129,7 @@ const Perfil = () => {
                     title,
                     description,
                     price,
-                    customText: 'Texto especial para o modal'
+                    customText: 'Serve de 2 a 3 pessoas'
                   })
                 }
               >
@@ -190,17 +150,15 @@ const Perfil = () => {
             <TextContent>
               <Title>{selectedProduct.title}</Title>
               <Description>{selectedProduct.description}</Description>
-              <p>Serve: de 2 a 3 pessoas</p>
+              <p>{selectedProduct.customText}</p>
               <Button
                 onClick={() => {
-                  if (selectedProduct) {
-                    setCartItems((prev) => [...prev, { ...selectedProduct }])
-                    setModalOpen(false)
-                    setCartOpen(true)
-                  }
+                  setCartItems((prev) => [...prev, { ...selectedProduct }])
+                  setModalOpen(false)
+                  setCartOpen(true)
                 }}
               >
-                Adicionar ao Carrinho - R$: {selectedProduct.price.toFixed(2)}
+                Adicionar ao Carrinho - R$ {selectedProduct.price.toFixed(2)}
               </Button>
             </TextContent>
           </ModalBody>
@@ -247,7 +205,6 @@ const Perfil = () => {
         orderId={orderId}
         onConcluir={() => {
           setConfirmacaoOpen(false)
-
           setCartItems([])
         }}
       />
