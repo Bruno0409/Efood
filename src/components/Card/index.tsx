@@ -18,13 +18,22 @@ type Props = {
   titulo: string
   nota: string
   descricao: string
+  id: number
 }
 
-const Card: React.FC<Props> = ({ imagem, tags, titulo, nota, descricao }) => {
+const Card: React.FC<Props> = ({
+  imagem,
+  tags,
+  titulo,
+  nota,
+  descricao,
+  id
+}) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate('/perfil')
+    console.log(`Navegando para /perfil/${id}`)
+    navigate(`/perfil/${id}`)
   }
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Modal from '../../components/Modal/modal'
 import CartDrawer, { Product as CartProduct } from '../../components/Carrinho'
 import EnderecoDrawer from '../../components/Endereco'
@@ -49,7 +50,10 @@ interface Product {
 }
 
 const Perfil = () => {
+  const { id } = useParams<{ id: string }>()
   const [products, setProducts] = useState<Product[]>([])
+  const [restaurant, setRestaurant] = useState<any>(null)
+
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
@@ -63,26 +67,29 @@ const Perfil = () => {
   const [orderId, setOrderId] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        const restaurante = data[0]
-        const pratos = restaurante.cardapio.map((item: any) => ({
-          id: item.id,
-          img: item.foto,
-          title: item.nome,
-          description: item.descricao,
-          price: item.preco,
-          customText: 'Serve de 2 a 3 pessoas'
-        }))
+        setRestaurant(data)
+        const pratos = data.cardapio.map((item: any) => {
+          console.log(item)
+          return {
+            id: item.id,
+            img: item.foto,
+            title: item.nome,
+            description: item.descricao,
+            price: item.preco,
+            customText: 'Serve de 2 a 3 pessoas'
+          }
+        })
         setProducts(pratos)
       })
       .catch((err) => {
-        console.error('Erro ao carregar produtos:', err)
+        console.error('Erro ao carregar restaurante ou pratos:', err)
       })
-  }, [])
+  }, [id])
 
-  const handleAddClick = (product: Product) => {
+  const handleSaibaMaisClick = (product: Product) => {
     setSelectedProduct(product)
     setModalOpen(true)
   }
@@ -112,11 +119,16 @@ const Perfil = () => {
             {cartItems.length} produto(s) no carrinho
           </RightText>
         </HeaderRow>
-        <HeroApresentacao>
-          <HeroImageSecundario src={heroImagemMassa} alt="Imagem secundária" />
-          <HeroTitle>Italiana</HeroTitle>
-          <HeroSubtitle>La Dolce Vita Trattoria</HeroSubtitle>
-        </HeroApresentacao>
+        {restaurant && (
+          <HeroApresentacao>
+            <HeroImageSecundario
+              src={heroImagemMassa}
+              alt="Imagem secundária"
+            />
+            <HeroTitle>{restaurant.nome}</HeroTitle>
+            <HeroSubtitle>{restaurant.tipo}</HeroSubtitle>
+          </HeroApresentacao>
+        )}
       </HeroContainer>
 
       <CardsSection>
@@ -128,17 +140,10 @@ const Perfil = () => {
               <CardDescription>{description}</CardDescription>
               <AddButton
                 onClick={() =>
-                  handleAddClick({
-                    id,
-                    img,
-                    title,
-                    description,
-                    price,
-                    customText: 'Serve de 2 a 3 pessoas'
-                  })
+                  handleSaibaMaisClick({ id, img, title, description, price })
                 }
               >
-                Adicionar ao carrinho
+                Saiba mais
               </AddButton>
             </Card>
           ))}

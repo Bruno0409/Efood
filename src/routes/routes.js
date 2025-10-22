@@ -13,8 +13,8 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/carrinho" element={<Carrinho />} />{' '}
+        <Route path="/perfil/:id" element={<Perfil />} />
+        <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/endereco" element={<EnderecoPage />} />
         <Route path="/pagamento" element={<PagamentoPage />} />
         <Route path="/confirmacao" element={<ConfirmacaoPage />} />

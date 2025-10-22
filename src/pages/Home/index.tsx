@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Card from '../../components/Card'
 
 import {
@@ -13,10 +14,28 @@ import {
 
 import heroImage from '../../assets/imagens/fundo.png'
 import logoImage from '../../assets/imagens/logo.png'
-import italianaImg from '../../assets/imagens/italiana.png'
-import japonesaImg from '../../assets/imagens/japonesa.png'
+
+interface Restaurante {
+  id: number
+  nome: string
+  tipo: string
+  foto: string
+}
 
 const Home = () => {
+  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+
+  useEffect(() => {
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((data) => {
+        setRestaurantes(data)
+      })
+      .catch((err) => {
+        console.error('Erro ao carregar restaurantes:', err)
+      })
+  }, [])
+
   return (
     <>
       <HeroContainer>
@@ -32,48 +51,17 @@ const Home = () => {
       <SecaoCards>
         <Container>
           <Lista>
-            <Card
-              imagem={italianaImg}
-              tags={['Destaque da semana', 'Massas']}
-              titulo="La Dolce Vita Trattoria"
-              nota="4.9"
-              descricao="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!"
-            />
-            <Card
-              imagem={japonesaImg}
-              tags={['Japonesa']}
-              titulo="Hioki Sushi"
-              nota="4.7"
-              descricao="Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!"
-            />
-            <Card
-              imagem={italianaImg}
-              tags={['Massas']}
-              titulo="La Dolce Vita Trattoria"
-              nota="4.9"
-              descricao="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!"
-            />
-            <Card
-              imagem={japonesaImg}
-              tags={['Japonesa']}
-              titulo="Hioki Sushi"
-              nota="4.7"
-              descricao="Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!"
-            />
-            <Card
-              imagem={italianaImg}
-              tags={['Massas']}
-              titulo="La Dolce Vita Trattoria"
-              nota="4.9"
-              descricao="A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!"
-            />
-            <Card
-              imagem={japonesaImg}
-              tags={['Japonesa']}
-              titulo="Hioki Sushi"
-              nota="4.7"
-              descricao="Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!"
-            />
+            {restaurantes.map((restaurante) => (
+              <Card
+                key={restaurante.id}
+                id={restaurante.id}
+                imagem={restaurante.foto}
+                tags={[restaurante.tipo]}
+                titulo={restaurante.nome}
+                nota="4.9"
+                descricao={`Descubra o melhor da culinária ${restaurante.tipo} no conforto da sua casa!`}
+              />
+            ))}
           </Lista>
         </Container>
       </SecaoCards>
