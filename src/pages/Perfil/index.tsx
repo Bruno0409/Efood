@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '../../components/Modal/modal'
-import CartDrawer from '../../components/Carrinho'
+import CartDrawer, { Product as CartProduct } from '../../components/Carrinho'
 import EnderecoDrawer from '../../components/Endereco'
 import PagamentoDrawer from '../../components/Pagamento'
 import ConfirmacaoPedidoDrawer from '../../components/Confirmacao'
@@ -52,12 +52,15 @@ const Perfil = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
   const [cartOpen, setCartOpen] = useState(false)
   const [enderecoOpen, setEnderecoOpen] = useState(false)
   const [pagamentoOpen, setPagamentoOpen] = useState(false)
   const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
-  const [cartItems, setCartItems] = useState<Product[]>([])
-  const [orderId] = useState('12345ABC')
+
+  const [cartItems, setCartItems] = useState<CartProduct[]>([])
+
+  const [orderId, setOrderId] = useState<string | null>(null)
 
   useEffect(() => {
     fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
@@ -93,6 +96,8 @@ const Perfil = () => {
     setEnderecoOpen(false)
     setCartOpen(true)
   }
+
+  const total = cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)
 
   return (
     <>
@@ -176,6 +181,7 @@ const Perfil = () => {
           setCartOpen(false)
           setEnderecoOpen(true)
         }}
+        total={total}
       />
 
       <EnderecoDrawer
@@ -196,13 +202,13 @@ const Perfil = () => {
           setPagamentoOpen(false)
           setConfirmacaoOpen(true)
         }}
-        total={cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
+        total={total}
       />
 
       <ConfirmacaoPedidoDrawer
         isOpen={confirmacaoOpen}
         onClose={() => setConfirmacaoOpen(false)}
-        orderId={orderId}
+        orderId={orderId || ''}
         onConcluir={() => {
           setConfirmacaoOpen(false)
           setCartItems([])

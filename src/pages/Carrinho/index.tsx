@@ -1,32 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import CartDrawer, { Product } from '../../components/Carrinho'
+import { removeItemFromCart } from '../../redux/cartActions'
 
 const CarrinhoPage = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const [cartItems, setCartItems] = useState<Product[]>([
-    {
-      id: 1,
-      img: '/path/to/image1.png',
-      title: 'Pizza Margherita',
-      price: 60.9
-    },
-    {
-      id: 2,
-      img: '/path/to/image2.png',
-      title: 'Sushi Combo',
-      price: 48.0
-    }
-  ])
+  const cartItems = useSelector((state: any) => state.cartItems)
 
   const handleRemoveItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id))
+    dispatch(removeItemFromCart(id))
   }
 
   const handleContinue = () => {
     navigate('/entrega')
   }
+
+  const total = cartItems
+    .reduce((sum: number, item: Product) => sum + item.price, 0)
+    .toFixed(2)
 
   return (
     <div>
@@ -37,6 +31,7 @@ const CarrinhoPage = () => {
         cartItems={cartItems}
         onRemoveItem={handleRemoveItem}
         onContinue={handleContinue}
+        total={total}
       />
     </div>
   )

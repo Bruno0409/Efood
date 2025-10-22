@@ -1,6 +1,5 @@
 import React from 'react'
 import trashIcon from '../../assets/imagens/Lixeira.png'
-
 import {
   DrawerOverlay,
   DrawerContainer,
@@ -31,6 +30,7 @@ interface CartDrawerProps {
   cartItems: Product[]
   onRemoveItem?: (id: number) => void
   onContinue?: () => void
+  total: string
 }
 
 const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -38,10 +38,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   onClose,
   cartItems,
   onRemoveItem,
-  onContinue
+  onContinue,
+  total
 }) => {
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)
-
   if (!isOpen) return null
 
   return (
@@ -55,7 +54,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 <CartTitle>{item.title}</CartTitle>
                 <CartPrice>R$ {item.price.toFixed(2)}</CartPrice>
               </CartDetails>
-              <RemoveButton onClick={() => onRemoveItem?.(item.id)}>
+              <RemoveButton
+                onClick={() => {
+                  if (onRemoveItem) {
+                    onRemoveItem(item.id)
+                  }
+                }}
+              >
                 <img
                   src={trashIcon}
                   alt="Remover item"
