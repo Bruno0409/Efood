@@ -15,11 +15,15 @@ import {
 import heroImage from '../../assets/imagens/fundo.png'
 import logoImage from '../../assets/imagens/logo.png'
 
+// Interface ajustada conforme os dados da API
 interface Restaurante {
   id: number
-  nome: string
+  titulo: string
   tipo: string
-  foto: string
+  capa: string
+  destacado: boolean
+  avaliacao: number
+  descricao: string
 }
 
 const Home = () => {
@@ -55,11 +59,14 @@ const Home = () => {
               <Card
                 key={restaurante.id}
                 id={restaurante.id}
-                imagem={restaurante.foto}
-                tags={[restaurante.tipo]}
-                titulo={restaurante.nome}
-                nota="4.9"
-                descricao={`Descubra o melhor da culinária ${restaurante.tipo} no conforto da sua casa!`}
+                imagem={restaurante.capa}
+                tags={[
+                  restaurante.tipo,
+                  restaurante.destacado ? 'Destaque' : ''
+                ].filter(Boolean)}
+                titulo={restaurante.titulo}
+                nota={restaurante.avaliacao.toFixed(1)}
+                descricao={restaurante.descricao}
               />
             ))}
           </Lista>

@@ -53,6 +53,7 @@ export const Container = styled.div`
 export const Lista = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
   gap: 40px 80px;
   list-style: none;
   margin: 0;
