@@ -122,10 +122,10 @@ const Perfil = () => {
         {restaurant && (
           <HeroApresentacao>
             <HeroImageSecundario
-              src={heroImagemMassa}
+              src={restaurant.capa}
               alt="Imagem secundária"
             />
-            <HeroTitle>{restaurant.nome}</HeroTitle>
+            <HeroTitle>{restaurant.titulo}</HeroTitle>
             <HeroSubtitle>{restaurant.tipo}</HeroSubtitle>
           </HeroApresentacao>
         )}

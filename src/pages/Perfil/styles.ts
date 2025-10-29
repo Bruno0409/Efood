@@ -86,7 +86,7 @@ export const HeroSubtitle = styled.h2`
 `
 export const HeroImageSecundario = styled.img`
   width: 100%;
-  height: 100%;
+  height: 280px;
   object-fit: cover;
   display: block;
 `
