@@ -49,6 +49,13 @@ interface Product {
   customText?: string
 }
 
+const truncateDescription = (description: string, maxLength = 120) => {
+  if (description.length > maxLength) {
+    return description.slice(0, maxLength) + '...'
+  }
+  return description
+}
+
 const Perfil = () => {
   const { id } = useParams<{ id: string }>()
   const [products, setProducts] = useState<Product[]>([])
@@ -137,7 +144,9 @@ const Perfil = () => {
             <Card key={id}>
               <CardImage src={img} alt={title} />
               <CardTitle>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
+              <CardDescription>
+                {truncateDescription(description)}
+              </CardDescription>
               <AddButton
                 onClick={() =>
                   handleSaibaMaisClick({ id, img, title, description, price })
