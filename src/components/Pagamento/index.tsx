@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import InputMask from 'react-input-mask'
 import {
   DrawerOverlay,
   DrawerContainer,
@@ -29,7 +30,35 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
   onFinish,
   total
 }) => {
+  const [cardName, setCardName] = useState('')
+  const [cardNumber, setCardNumber] = useState('')
+  const [cvv, setCvv] = useState('')
+  const [month, setMonth] = useState('')
+  const [year, setYear] = useState('')
+
   if (!isOpen) return null
+
+  const handleFinish = () => {
+    const digitsCard = cardNumber.replace(/\D/g, '')
+    if (digitsCard.length < 16) {
+      alert('Por favor, insira um número de cartão válido com 16 dígitos.')
+      return
+    }
+    if (cvv.length < 3) {
+      alert('Por favor, insira um CVV válido (3 dígitos).')
+      return
+    }
+    if (month.length < 2 || Number(month) < 1 || Number(month) > 12) {
+      alert('Por favor, insira um mês válido (MM).')
+      return
+    }
+    if (year.length < 2) {
+      alert('Por favor, insira o ano (AA).')
+      return
+    }
+
+    onFinish()
+  }
 
   return (
     <DrawerOverlay onClick={onClose}>
@@ -42,35 +71,73 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
 
           <InputGroup>
             <Label>Nome no cartão</Label>
-            <Input placeholder="Digite o nome como está no cartão" />
+            <Input
+              placeholder="Digite o nome como está no cartão"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+            />
           </InputGroup>
 
           <Row>
             <InputGroup style={{ flex: 1 }}>
               <Label>Número do cartão</Label>
-              <Input placeholder="0000 0000 0000 0000" />
+              <InputMask
+                mask="9999 9999 9999 9999"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+              >
+                {(inputProps: any) => (
+                  <Input {...inputProps} placeholder="0000 0000 0000 0000" />
+                )}
+              </InputMask>
             </InputGroup>
 
             <InputGroup style={{ width: '80px' }}>
               <Label>CVV</Label>
-              <Input placeholder="000" />
+              <InputMask
+                mask="999"
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value)}
+              >
+                {(inputProps: any) => (
+                  <Input {...inputProps} placeholder="000" />
+                )}
+              </InputMask>
             </InputGroup>
           </Row>
 
           <Row>
             <InputGroup style={{ flex: 1 }}>
               <Label>Mês do Vencimento</Label>
-              <Input placeholder="MM" maxLength={2} style={{ width: '100%' }} />
+              <InputMask
+                mask="99"
+                value={month}
+                onChange={(e) => setMonth(e.target.value)}
+                maxLength={2}
+              >
+                {(inputProps: any) => (
+                  <Input {...inputProps} placeholder="MM" />
+                )}
+              </InputMask>
             </InputGroup>
 
             <InputGroup style={{ flex: 1 }}>
               <Label>Ano do Vencimento</Label>
-              <Input placeholder="AA" maxLength={2} style={{ width: '100%' }} />
+              <InputMask
+                mask="99"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                maxLength={2}
+              >
+                {(inputProps: any) => (
+                  <Input {...inputProps} placeholder="AA" />
+                )}
+              </InputMask>
             </InputGroup>
           </Row>
         </ItemsContainer>
 
-        <CheckoutButton onClick={onFinish}>Finalizar pedido</CheckoutButton>
+        <CheckoutButton onClick={handleFinish}>Finalizar pedido</CheckoutButton>
         <SecondaryButton onClick={onVoltarParaEndereco}>
           Voltar para endereço
         </SecondaryButton>

@@ -1,6 +1,5 @@
-// src/pages/Confirmacao/index.tsx
-
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import {
   DrawerContainer,
   ItemsContainer,
@@ -11,11 +10,13 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 const ConfirmacaoPage = () => {
+  const location = useLocation()
+  const orderId = location.state?.orderId || 'N/A'
+
   const navigate = useNavigate()
-  const orderId = '12345ABC'
 
   const handleConcluir = () => {
-    navigate('/')
+    navigate('/') // Voltar para a página inicial ou carrinho
   }
 
   return (
