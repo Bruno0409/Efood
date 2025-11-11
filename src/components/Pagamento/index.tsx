@@ -45,20 +45,27 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
             <Input placeholder="Digite o nome como está no cartão" />
           </InputGroup>
 
-          <InputGroup>
-            <Label>Número do cartão</Label>
-            <Input placeholder="0000 0000 0000 0000" />
-          </InputGroup>
-
           <Row>
             <InputGroup style={{ flex: 1 }}>
-              <Label>Validade</Label>
-              <Input placeholder="MM/AA" />
+              <Label>Número do cartão</Label>
+              <Input placeholder="0000 0000 0000 0000" />
             </InputGroup>
 
             <InputGroup style={{ width: '80px' }}>
               <Label>CVV</Label>
               <Input placeholder="000" />
+            </InputGroup>
+          </Row>
+
+          <Row>
+            <InputGroup style={{ flex: 1 }}>
+              <Label>Mês do Vencimento</Label>
+              <Input placeholder="MM" maxLength={2} style={{ width: '100%' }} />
+            </InputGroup>
+
+            <InputGroup style={{ flex: 1 }}>
+              <Label>Ano do Vencimento</Label>
+              <Input placeholder="AA" maxLength={2} style={{ width: '100%' }} />
             </InputGroup>
           </Row>
         </ItemsContainer>
