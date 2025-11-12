@@ -1,47 +1,81 @@
-// src/pages/Confirmacao/index.tsx
-
 import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
+  DrawerOverlay,
   DrawerContainer,
   ItemsContainer,
   Title,
   Paragraph,
   ConcluirButton
 } from '../../components/Confirmacao/styles'
-import { useNavigate } from 'react-router-dom'
 
 const ConfirmacaoPage = () => {
   const navigate = useNavigate()
-  const orderId = '12345ABC'
+  const location = useLocation()
+  const { orderId, cartItems, deliveryData, paymentData } = location.state || {}
 
+  // Verificar se todos os dados necessários estão presentes
+  if (!orderId || !cartItems || !deliveryData || !paymentData) {
+    return <p>Dados do pedido não encontrados!</p>
+  }
+
+  const total = cartItems
+    .reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
+    .toFixed(2)
+
+  // Função para lidar com a ação do botão de "Concluir"
   const handleConcluir = () => {
-    navigate('/')
+    navigate('/') // Navega para a página inicial após concluir
   }
 
   return (
-    <DrawerContainer>
-      <ItemsContainer>
-        <Title>Pedido realizado - {orderId}</Title>
-        <Paragraph>
-          Estamos felizes em informar que seu pedido já está em processo de
-          preparação e, em breve, será entregue no endereço fornecido.
-        </Paragraph>
-        <Paragraph>
-          Gostaríamos de ressaltar que nossos entregadores não estão autorizados
-          a realizar cobranças extras.
-        </Paragraph>
-        <Paragraph>
-          Lembre-se da importância de higienizar as mãos após o recebimento do
-          pedido, garantindo assim sua segurança e bem-estar durante a refeição.
-        </Paragraph>
-        <Paragraph>
-          Esperamos que desfrute de uma deliciosa e agradável experiência
-          gastronômica. Bom apetite!
-        </Paragraph>
-      </ItemsContainer>
+    <DrawerOverlay>
+      <DrawerContainer>
+        <ItemsContainer>
+          <Title>Pedido Realizado - {orderId}</Title>
 
-      <ConcluirButton onClick={handleConcluir}>Concluir</ConcluirButton>
-    </DrawerContainer>
+          <Paragraph>
+            Seu pedido foi recebido e está em processo de preparação. Ele será
+            entregue no endereço fornecido em breve.
+          </Paragraph>
+
+          <h4>Itens do Pedido:</h4>
+          {cartItems.map((item: any, index: number) => (
+            <Paragraph key={index}>
+              {item.title} - {item.quantity} x R${item.price.toFixed(2)} = R$
+              {(item.quantity * item.price).toFixed(2)}
+            </Paragraph>
+          ))}
+
+          <Paragraph>
+            <strong>Total: R${total}</strong>
+          </Paragraph>
+
+          <h4>Endereço de Entrega:</h4>
+          <Paragraph>
+            {deliveryData?.nome} <br />
+            {deliveryData?.rua}, {deliveryData?.numero} <br />
+            {deliveryData?.complemento
+              ? `Complemento: ${deliveryData.complemento}`
+              : 'Sem complemento'}
+            <br />
+            {deliveryData?.cidade} - {deliveryData?.cep}
+          </Paragraph>
+
+          <h4>Forma de Pagamento:</h4>
+          <Paragraph>
+            {paymentData?.metodo} -{' '}
+            {paymentData?.resumo || 'Detalhes do pagamento não informados.'}
+          </Paragraph>
+
+          <Paragraph>
+            Seu pedido será entregue em breve! Agradecemos pela confiança.
+          </Paragraph>
+
+          <ConcluirButton onClick={handleConcluir}>Concluir</ConcluirButton>
+        </ItemsContainer>
+      </DrawerContainer>
+    </DrawerOverlay>
   )
 }
 

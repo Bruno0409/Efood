@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import Modal from '../../components/Modal/modal'
 import CartDrawer, { Product as CartProduct } from '../../components/Carrinho'
 import EnderecoDrawer from '../../components/Endereco'
 import PagamentoDrawer from '../../components/Pagamento'
-import ConfirmacaoPedidoDrawer from '../../components/Confirmacao'
 
 import {
   ModalBody,
@@ -38,7 +37,6 @@ import {
 
 import heroImagePerfil from '../../assets/imagens/fundo_menor.png'
 import logoImage from '../../assets/imagens/logo.png'
-import heroImagemMassa from '../../assets/imagens/fundoMassa.png'
 
 interface Product {
   id: number
@@ -47,6 +45,7 @@ interface Product {
   description: string
   price: number
   customText?: string
+  quantity?: number // Quantidade opcional no tipo do produto
 }
 
 const truncateDescription = (description: string, maxLength = 120) => {
@@ -58,6 +57,7 @@ const truncateDescription = (description: string, maxLength = 120) => {
 
 const Perfil = () => {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [products, setProducts] = useState<Product[]>([])
   const [restaurant, setRestaurant] = useState<any>(null)
 
@@ -67,7 +67,6 @@ const Perfil = () => {
   const [cartOpen, setCartOpen] = useState(false)
   const [enderecoOpen, setEnderecoOpen] = useState(false)
   const [pagamentoOpen, setPagamentoOpen] = useState(false)
-  const [confirmacaoOpen, setConfirmacaoOpen] = useState(false)
 
   const [cartItems, setCartItems] = useState<CartProduct[]>([])
 
@@ -79,7 +78,6 @@ const Perfil = () => {
       .then((data) => {
         setRestaurant(data)
         const pratos = data.cardapio.map((item: any) => {
-          console.log(item)
           return {
             id: item.id,
             img: item.foto,
@@ -111,7 +109,10 @@ const Perfil = () => {
     setCartOpen(true)
   }
 
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)
+  // Calculando total com base na quantidade
+  const total = cartItems
+    .reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
+    .toFixed(2)
 
   return (
     <>
@@ -172,7 +173,19 @@ const Perfil = () => {
               <p>{selectedProduct.customText}</p>
               <Button
                 onClick={() => {
-                  setCartItems((prev) => [...prev, { ...selectedProduct }])
+                  // Adicionando a quantidade ao carrinho
+                  setCartItems((prev) => {
+                    const productIndex = prev.findIndex(
+                      (item) => item.id === selectedProduct.id
+                    )
+                    if (productIndex !== -1) {
+                      const updatedCartItems = [...prev]
+                      updatedCartItems[productIndex].quantity += 1
+                      return updatedCartItems
+                    } else {
+                      return [...prev, { ...selectedProduct, quantity: 1 }]
+                    }
+                  })
                   setModalOpen(false)
                   setCartOpen(true)
                 }}
@@ -195,7 +208,6 @@ const Perfil = () => {
           setCartOpen(false)
           setEnderecoOpen(true)
         }}
-        total={total}
       />
 
       <EnderecoDrawer
@@ -213,20 +225,30 @@ const Perfil = () => {
         onClose={() => setPagamentoOpen(false)}
         onVoltarParaEndereco={handleVoltarParaEndereco}
         onFinish={() => {
-          setPagamentoOpen(false)
-          setConfirmacaoOpen(true)
+          const newOrderId = `order-${new Date().getTime()}`
+          setOrderId(newOrderId)
+
+          // Passa os dados para a página de confirmação
+          navigate('/confirmacao', {
+            state: {
+              orderId: newOrderId,
+              cartItems,
+              deliveryData: {
+                nome: 'João Silva',
+                rua: 'Rua 10',
+                numero: '123',
+                complemento: 'Apto 101',
+                cidade: 'São Paulo',
+                cep: '01234-567'
+              },
+              paymentData: {
+                metodo: 'Cartão de Crédito',
+                resumo: 'Pagamento aprovado'
+              }
+            }
+          })
         }}
         total={total}
-      />
-
-      <ConfirmacaoPedidoDrawer
-        isOpen={confirmacaoOpen}
-        onClose={() => setConfirmacaoOpen(false)}
-        orderId={orderId || ''}
-        onConcluir={() => {
-          setConfirmacaoOpen(false)
-          setCartItems([])
-        }}
       />
     </>
   )

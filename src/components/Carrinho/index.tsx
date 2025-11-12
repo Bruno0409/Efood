@@ -17,11 +17,13 @@ import {
   TotalRow
 } from './styles'
 
+// Atualizar interface para incluir a quantidade
 export interface Product {
   id: number
   img: string
   title: string
   price: number
+  quantity: number // Quantidade de cada item no carrinho
 }
 
 interface CartDrawerProps {
@@ -30,7 +32,6 @@ interface CartDrawerProps {
   cartItems: Product[]
   onRemoveItem?: (id: number) => void
   onContinue?: () => void
-  total: string
 }
 
 const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -38,10 +39,14 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   onClose,
   cartItems,
   onRemoveItem,
-  onContinue,
-  total
+  onContinue
 }) => {
   if (!isOpen) return null
+
+  // Calculando o total dinamicamente
+  const total = cartItems
+    .reduce((sum, item) => sum + item.price * item.quantity, 0)
+    .toFixed(2)
 
   return (
     <DrawerOverlay onClick={onClose}>
@@ -52,7 +57,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
               <CartImage src={item.img} alt={item.title} />
               <CartDetails>
                 <CartTitle>{item.title}</CartTitle>
-                <CartPrice>R$ {item.price.toFixed(2)}</CartPrice>
+                <CartPrice>
+                  R$ {(item.price * item.quantity).toFixed(2)}{' '}
+                  {/* Preço total de cada item */}
+                </CartPrice>
               </CartDetails>
               <RemoveButton
                 onClick={() => {
@@ -74,7 +82,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
         <CartFooter>
           <TotalRow>
             <TotalLabel>Valor total:</TotalLabel>
-            <TotalValue>R$ {total}</TotalValue>
+            <TotalValue>R$ {total}</TotalValue> {/* Exibe o total calculado */}
           </TotalRow>
           <CheckoutButton onClick={onContinue}>
             Continuar com a entrega
