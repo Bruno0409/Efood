@@ -15,8 +15,7 @@ const CarrinhoPage = () => {
   }
 
   const handleContinue = () => {
-    // Passar os itens do carrinho para a próxima página de endereço
-    navigate('/entrega', { state: { cartItems } })
+    navigate('/entrega')
   }
 
   const total = cartItems

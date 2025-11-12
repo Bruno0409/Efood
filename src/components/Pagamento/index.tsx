@@ -113,7 +113,6 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
                 mask="99"
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
-                maxLength={2}
               >
                 {(inputProps: any) => (
                   <Input {...inputProps} placeholder="MM" />
@@ -127,7 +126,6 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
                 mask="99"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                maxLength={2}
               >
                 {(inputProps: any) => (
                   <Input {...inputProps} placeholder="AA" />

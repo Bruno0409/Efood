@@ -1,4 +1,5 @@
 import React from 'react'
+import InputMask from 'react-input-mask'
 import {
   DrawerOverlay,
   DrawerContainer,
@@ -50,7 +51,11 @@ const EnderecoDrawer: React.FC<EnderecoDrawerProps> = ({
           <Row>
             <InputGroup style={{ flex: 1 }}>
               <Label>CEP</Label>
-              <Input placeholder="00000-000" />
+              <InputMask mask="99999-999">
+                {(inputProps: any) => (
+                  <Input {...inputProps} placeholder="00000-000" />
+                )}
+              </InputMask>
             </InputGroup>
 
             <InputGroup style={{ width: '80px' }}>
