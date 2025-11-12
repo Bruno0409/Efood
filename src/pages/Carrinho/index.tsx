@@ -31,7 +31,6 @@ const CarrinhoPage = () => {
         cartItems={cartItems}
         onRemoveItem={handleRemoveItem}
         onContinue={handleContinue}
-        total={total}
       />
     </div>
   )
