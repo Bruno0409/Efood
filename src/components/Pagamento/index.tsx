@@ -1,3 +1,4 @@
+// components/PagamentoDrawer/index.tsx
 import React, { useState } from 'react'
 import InputMask from 'react-input-mask'
 import {
@@ -50,7 +51,14 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
     }
 
     // Passando os dados de pagamento para o Perfil
-    onFinish({ cardName, cardNumber, cvv, month, year })
+    onFinish({
+      metodo: 'Cartão de Crédito',
+      cardName,
+      cardNumber,
+      cvv,
+      month,
+      year
+    })
   }
 
   return (

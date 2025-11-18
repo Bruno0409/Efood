@@ -138,16 +138,20 @@ const Perfil = () => {
 
   // Função chamada para passar os dados de pagamento para o Perfil
   const handlePagamentoFinish = (paymentData: PaymentData) => {
+    // Salva os dados de pagamento no estado
     setPaymentData(paymentData)
+
+    // Gera um novo ID de pedido
     const newOrderId = `order-${new Date().getTime()}`
     setOrderId(newOrderId)
-    // Passa os dados para a página de confirmação
+
+    // Passa os dados para a página de confirmação (onde o pedido é finalizado)
     navigate('/confirmacao', {
       state: {
         orderId: newOrderId,
         cartItems,
         deliveryData,
-        paymentData
+        paymentData // Passa os dados de pagamento corretamente
       }
     })
   }

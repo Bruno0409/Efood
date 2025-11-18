@@ -1,3 +1,4 @@
+// pages/Confirmacao/index.tsx
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -22,6 +23,12 @@ const ConfirmacaoPage = () => {
   const total = cartItems
     .reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
     .toFixed(2)
+
+  // Função para exibir os últimos 4 dígitos do número do cartão
+  const maskCardNumber = (cardNumber: string) => {
+    const last4Digits = cardNumber.slice(-4) // Pega os últimos 4 dígitos
+    return `**** **** **** ${last4Digits}` // Mostra os últimos 4 e mascara o restante
+  }
 
   // Função para lidar com a ação do botão de "Concluir"
   const handleConcluir = () => {
@@ -65,7 +72,9 @@ const ConfirmacaoPage = () => {
           <h4>Forma de Pagamento:</h4>
           <Paragraph>
             {paymentData?.metodo} -{' '}
-            {paymentData?.resumo || 'Detalhes do pagamento não informados.'}
+            {paymentData?.cardNumber
+              ? maskCardNumber(paymentData.cardNumber)
+              : 'Número do cartão não informado'}
           </Paragraph>
 
           <Paragraph>
