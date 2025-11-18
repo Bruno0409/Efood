@@ -38,6 +38,24 @@ import {
 import heroImagePerfil from '../../assets/imagens/fundo_menor.png'
 import logoImage from '../../assets/imagens/logo.png'
 
+// Definindo os tipos de dados para endereço e pagamento
+interface EnderecoData {
+  nome: string
+  endereco: string
+  cidade: string
+  cep: string
+  numero: string
+  complemento: string
+}
+
+interface PaymentData {
+  cardName: string
+  cardNumber: string
+  cvv: string
+  month: string
+  year: string
+}
+
 interface Product {
   id: number
   img: string
@@ -45,7 +63,7 @@ interface Product {
   description: string
   price: number
   customText?: string
-  quantity?: number // Quantidade opcional no tipo do produto
+  quantity?: number
 }
 
 const truncateDescription = (description: string, maxLength = 120) => {
@@ -71,6 +89,8 @@ const Perfil = () => {
   const [cartItems, setCartItems] = useState<CartProduct[]>([])
 
   const [orderId, setOrderId] = useState<string | null>(null)
+  const [deliveryData, setDeliveryData] = useState<EnderecoData | null>(null)
+  const [paymentData, setPaymentData] = useState<PaymentData | null>(null)
 
   useEffect(() => {
     fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
@@ -107,6 +127,29 @@ const Perfil = () => {
   const handleVoltarAoCarrinho = () => {
     setEnderecoOpen(false)
     setCartOpen(true)
+  }
+
+  // Função chamada para passar os dados do endereço para o Perfil
+  const handleEnderecoContinue = (enderecoData: EnderecoData) => {
+    setDeliveryData(enderecoData)
+    setEnderecoOpen(false)
+    setPagamentoOpen(true)
+  }
+
+  // Função chamada para passar os dados de pagamento para o Perfil
+  const handlePagamentoFinish = (paymentData: PaymentData) => {
+    setPaymentData(paymentData)
+    const newOrderId = `order-${new Date().getTime()}`
+    setOrderId(newOrderId)
+    // Passa os dados para a página de confirmação
+    navigate('/confirmacao', {
+      state: {
+        orderId: newOrderId,
+        cartItems,
+        deliveryData,
+        paymentData
+      }
+    })
   }
 
   // Calculando total com base na quantidade
@@ -213,10 +256,7 @@ const Perfil = () => {
       <EnderecoDrawer
         isOpen={enderecoOpen}
         onClose={() => setEnderecoOpen(false)}
-        onContinue={() => {
-          setEnderecoOpen(false)
-          setPagamentoOpen(true)
-        }}
+        onContinue={handleEnderecoContinue}
         onVoltarAoCarrinho={handleVoltarAoCarrinho}
       />
 
@@ -224,30 +264,7 @@ const Perfil = () => {
         isOpen={pagamentoOpen}
         onClose={() => setPagamentoOpen(false)}
         onVoltarParaEndereco={handleVoltarParaEndereco}
-        onFinish={() => {
-          const newOrderId = `order-${new Date().getTime()}`
-          setOrderId(newOrderId)
-
-          // Passa os dados para a página de confirmação
-          navigate('/confirmacao', {
-            state: {
-              orderId: newOrderId,
-              cartItems,
-              deliveryData: {
-                nome: 'João Silva',
-                rua: 'Rua 10',
-                numero: '123',
-                complemento: 'Apto 101',
-                cidade: 'São Paulo',
-                cep: '01234-567'
-              },
-              paymentData: {
-                metodo: 'Cartão de Crédito',
-                resumo: 'Pagamento aprovado'
-              }
-            }
-          })
-        }}
+        onFinish={handlePagamentoFinish}
         total={total}
       />
     </>

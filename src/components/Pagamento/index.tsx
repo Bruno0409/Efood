@@ -19,7 +19,7 @@ interface PagamentoDrawerProps {
   isOpen: boolean
   onClose: () => void
   onVoltarParaEndereco: () => void
-  onFinish: () => void
+  onFinish: (paymentData: any) => void
   total: string
 }
 
@@ -39,25 +39,18 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
   if (!isOpen) return null
 
   const handleFinish = () => {
-    const digitsCard = cardNumber.replace(/\D/g, '')
-    if (digitsCard.length < 16) {
-      alert('Por favor, insira um número de cartão válido com 16 dígitos.')
-      return
-    }
-    if (cvv.length < 3) {
-      alert('Por favor, insira um CVV válido (3 dígitos).')
-      return
-    }
-    if (month.length < 2 || Number(month) < 1 || Number(month) > 12) {
-      alert('Por favor, insira um mês válido (MM).')
-      return
-    }
-    if (year.length < 2) {
-      alert('Por favor, insira o ano (AA).')
+    if (
+      cardNumber.length < 16 ||
+      cvv.length < 3 ||
+      month.length < 2 ||
+      year.length < 2
+    ) {
+      alert('Por favor, preencha todos os campos corretamente.')
       return
     }
 
-    onFinish()
+    // Passando os dados de pagamento para o Perfil
+    onFinish({ cardName, cardNumber, cvv, month, year })
   }
 
   return (

@@ -15,7 +15,7 @@ import {
 interface EnderecoDrawerProps {
   isOpen: boolean
   onClose: () => void
-  onContinue: () => void
+  onContinue: (enderecoData: any) => void
   onVoltarAoCarrinho: () => void
 }
 
@@ -36,21 +36,19 @@ const EnderecoDrawer: React.FC<EnderecoDrawerProps> = ({
   if (!isOpen) return null
 
   // Função de validação
-  const handleContinue = (e: React.MouseEvent) => {
-    e.stopPropagation()
-
+  const handleContinue = () => {
     if (!nome || !endereco || !cidade || !cep || !numero) {
       alert('Por favor, preencha todos os campos obrigatórios.')
       return
     }
 
-    // Valida se o CEP está completo (máscara "99999-999")
-    if (cep.includes('_') || cep.length < 9) {
+    if (cep.length < 9) {
       alert('Digite um CEP válido (formato 00000-000).')
       return
     }
 
-    onContinue()
+    // Passando os dados de endereço para o Perfil
+    onContinue({ nome, endereco, cidade, cep, numero, complemento })
   }
 
   return (
