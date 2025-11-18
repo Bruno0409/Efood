@@ -108,8 +108,8 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
           </Row>
 
           <Row>
-            <InputGroup style={{ flex: 1 }}>
-              <Label>Mês do Vencimento</Label>
+            <InputGroup style={{ width: '150px' }}>
+              <Label>Mês vencimento</Label>
               <InputMask
                 mask="99"
                 value={month}
@@ -121,8 +121,8 @@ const PagamentoDrawer: React.FC<PagamentoDrawerProps> = ({
               </InputMask>
             </InputGroup>
 
-            <InputGroup style={{ flex: 1 }}>
-              <Label>Ano do Vencimento</Label>
+            <InputGroup style={{ width: '150px' }}>
+              <Label>Ano vencimento</Label>
               <InputMask
                 mask="99"
                 value={year}
