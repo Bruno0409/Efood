@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
 import Modal from '../../components/Modal/modal'
 import CartDrawer, { Product as CartProduct } from '../../components/Carrinho'
 import EnderecoDrawer from '../../components/Endereco'
@@ -38,22 +38,21 @@ import {
 import heroImagePerfil from '../../assets/imagens/fundo_menor.png'
 import logoImage from '../../assets/imagens/logo.png'
 
-// Definindo os tipos de dados para endereço e pagamento
 interface EnderecoData {
   nome: string
   endereco: string
   cidade: string
   cep: string
-  numero: string
-  complemento: string
+  numero: number
+  complemento?: string
 }
 
 interface PaymentData {
   cardName: string
   cardNumber: string
-  cvv: string
-  month: string
-  year: string
+  cvv: number
+  month: number
+  year: number
 }
 
 interface Product {
@@ -66,16 +65,10 @@ interface Product {
   quantity?: number
 }
 
-const truncateDescription = (description: string, maxLength = 120) => {
-  if (description.length > maxLength) {
-    return description.slice(0, maxLength) + '...'
-  }
-  return description
-}
-
-const formatPrice = (value: number) => {
-  return value.toFixed(2).replace('.', ',')
-}
+const truncateDescription = (description: string, maxLength = 120) =>
+  description.length > maxLength
+    ? description.slice(0, maxLength) + '...'
+    : description
 
 const Perfil = () => {
   const { id } = useParams<{ id: string }>()
@@ -91,8 +84,6 @@ const Perfil = () => {
   const [pagamentoOpen, setPagamentoOpen] = useState(false)
 
   const [cartItems, setCartItems] = useState<CartProduct[]>([])
-
-  const [orderId, setOrderId] = useState<string | null>(null)
   const [deliveryData, setDeliveryData] = useState<EnderecoData | null>(null)
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null)
 
@@ -101,21 +92,19 @@ const Perfil = () => {
       .then((res) => res.json())
       .then((data) => {
         setRestaurant(data)
-        const pratos = data.cardapio.map((item: any) => {
-          return {
-            id: item.id,
-            img: item.foto,
-            title: item.nome,
-            description: item.descricao,
-            price: item.preco,
-            customText: 'Serve de 2 a 3 pessoas'
-          }
-        })
+        const pratos = data.cardapio.map((item: any) => ({
+          id: item.id,
+          img: item.foto,
+          title: item.nome,
+          description: item.descricao,
+          price: item.preco,
+          customText: 'Serve de 2 a 3 pessoas'
+        }))
         setProducts(pratos)
       })
-      .catch((err) => {
+      .catch((err) =>
         console.error('Erro ao carregar restaurante ou pratos:', err)
-      })
+      )
   }, [id])
 
   const handleSaibaMaisClick = (product: Product) => {
@@ -133,37 +122,68 @@ const Perfil = () => {
     setCartOpen(true)
   }
 
-  // Função chamada para passar os dados do endereço para o Perfil
   const handleEnderecoContinue = (enderecoData: EnderecoData) => {
     setDeliveryData(enderecoData)
     setEnderecoOpen(false)
     setPagamentoOpen(true)
   }
 
-  // Função chamada para passar os dados de pagamento para o Perfil
-  const handlePagamentoFinish = (paymentData: PaymentData) => {
-    // Salva os dados de pagamento no estado
-    setPaymentData(paymentData)
+  const handlePagamentoFinish = async (payment: PaymentData) => {
+    setPaymentData(payment)
 
-    // Gera um novo ID de pedido
-    const newOrderId = `order-${new Date().getTime()}`
-    setOrderId(newOrderId)
+    if (!deliveryData || cartItems.length === 0) {
+      alert('Preencha o endereço e adicione produtos ao carrinho.')
+      return
+    }
 
-    // Passa os dados para a página de confirmação (onde o pedido é finalizado)
-    navigate('/confirmacao', {
-      state: {
-        orderId: newOrderId,
-        cartItems,
-        deliveryData,
-        paymentData // Passa os dados de pagamento corretamente
+    const pedidoData = {
+      products: cartItems.map((item) => ({
+        id: item.id,
+        price: item.price
+      })),
+      delivery: {
+        receiver: deliveryData.nome,
+        address: {
+          description: deliveryData.endereco,
+          city: deliveryData.cidade,
+          zipCode: deliveryData.cep,
+          number: deliveryData.numero,
+          complement: deliveryData.complemento || ''
+        }
+      },
+      payment: {
+        card: {
+          name: payment.cardName,
+          number: payment.cardNumber,
+          code: payment.cvv,
+          expires: {
+            month: payment.month,
+            year: payment.year
+          }
+        }
       }
-    })
+    }
+
+    try {
+      const response = await axios.post(
+        'https://api-ebac.vercel.app/api/efood/checkout',
+        pedidoData
+      )
+      const { orderId } = response.data
+
+      navigate('/confirmacao', {
+        state: { orderId, cartItems, deliveryData, paymentData: payment }
+      })
+    } catch (error) {
+      console.error('Erro ao processar o pagamento:', error)
+      alert('Erro ao processar o pagamento. Tente novamente.')
+    }
   }
 
-  // Calculando total com base na quantidade
   const total = cartItems
     .reduce((sum, item) => sum + item.price * (item.quantity || 1), 0)
     .toFixed(2)
+    .replace('.', ',')
 
   return (
     <>
@@ -224,18 +244,16 @@ const Perfil = () => {
               <p>{selectedProduct.customText}</p>
               <Button
                 onClick={() => {
-                  // Adicionando a quantidade ao carrinho
                   setCartItems((prev) => {
-                    const productIndex = prev.findIndex(
-                      (item) => item.id === selectedProduct.id
+                    const index = prev.findIndex(
+                      (i) => i.id === selectedProduct.id
                     )
-                    if (productIndex !== -1) {
-                      const updatedCartItems = [...prev]
-                      updatedCartItems[productIndex].quantity += 1
-                      return updatedCartItems
-                    } else {
-                      return [...prev, { ...selectedProduct, quantity: 1 }]
+                    if (index !== -1) {
+                      const updated = [...prev]
+                      updated[index].quantity! += 1
+                      return updated
                     }
+                    return [...prev, { ...selectedProduct, quantity: 1 }]
                   })
                   setModalOpen(false)
                   setCartOpen(true)

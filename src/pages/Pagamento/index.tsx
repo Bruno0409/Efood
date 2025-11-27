@@ -44,7 +44,8 @@ const PagamentoPage = () => {
     ? cartItems
         .reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
         .toFixed(2)
-    : '0.00'
+        .replace('.', ',')
+    : '0,00'
 
   return (
     <div>
