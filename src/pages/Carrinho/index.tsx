@@ -21,6 +21,7 @@ const CarrinhoPage = () => {
   const total = cartItems
     .reduce((sum: number, item: Product) => sum + item.price, 0)
     .toFixed(2)
+    .replace('.', ',')
 
   return (
     <div>

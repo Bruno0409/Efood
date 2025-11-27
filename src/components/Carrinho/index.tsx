@@ -47,6 +47,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const total = cartItems
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
     .toFixed(2)
+    .replace('.', ',')
 
   return (
     <DrawerOverlay onClick={onClose}>
@@ -58,7 +59,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
               <CartDetails>
                 <CartTitle>{item.title}</CartTitle>
                 <CartPrice>
-                  R$ {(item.price * item.quantity).toFixed(2)}{' '}
+                  R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}{' '}
                   {/* Preço total de cada item */}
                 </CartPrice>
               </CartDetails>

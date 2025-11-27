@@ -73,6 +73,10 @@ const truncateDescription = (description: string, maxLength = 120) => {
   return description
 }
 
+const formatPrice = (value: number) => {
+  return value.toFixed(2).replace('.', ',')
+}
+
 const Perfil = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -237,7 +241,8 @@ const Perfil = () => {
                   setCartOpen(true)
                 }}
               >
-                Adicionar ao Carrinho - R$ {selectedProduct.price.toFixed(2)}
+                Adicionar ao Carrinho - R${' '}
+                {selectedProduct.price.toFixed(2).replace('.', ',')}
               </Button>
             </TextContent>
           </ModalBody>

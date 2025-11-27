@@ -32,6 +32,7 @@ const ConfirmacaoPedidoDrawer: React.FC<ConfirmacaoPedidoDrawerProps> = ({
     ? cartItems
         .reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
         .toFixed(2)
+        .replace('.', ',')
     : '0.00'
 
   return (
@@ -48,8 +49,9 @@ const ConfirmacaoPedidoDrawer: React.FC<ConfirmacaoPedidoDrawerProps> = ({
             <h4>Itens do pedido:</h4>
             {cartItems.map((item: any, index: number) => (
               <Paragraph key={index}>
-                {item.name} - {item.quantity} x R${item.price.toFixed(2)} = R$
-                {(item.quantity * item.price).toFixed(2)}
+                {item.name} - {item.quantity} x R$
+                {item.price.toFixed(2).replace('.', ',')} = R$
+                {(item.quantity * item.price).toFixed(2).replace('.', ',')}
               </Paragraph>
             ))}
           </div>

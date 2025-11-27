@@ -23,6 +23,7 @@ const ConfirmacaoPage = () => {
   const total = cartItems
     .reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
     .toFixed(2)
+    .replace('.', ',')
 
   // Função para exibir os últimos 4 dígitos do número do cartão
   const maskCardNumber = (cardNumber: string) => {
@@ -49,8 +50,9 @@ const ConfirmacaoPage = () => {
           <h4>Itens do Pedido:</h4>
           {cartItems.map((item: any, index: number) => (
             <Paragraph key={index}>
-              {item.title} - {item.quantity} x R${item.price.toFixed(2)} = R$
-              {(item.quantity * item.price).toFixed(2)}
+              {item.title} - {item.quantity} x R$
+              {item.price.toFixed(2).replace('.', ',')} = R$
+              {(item.quantity * item.price).toFixed(2).replace('.', ',')}
             </Paragraph>
           ))}
 
